@@ -50,6 +50,25 @@
 
 .detail-date {
   color: #bbb;
+  margin-bottom: 20px;
+}
+
+.detail-genres {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.genre-tag {
+  background-color: #333;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+.detail-overview {
   margin-bottom: 30px;
 }
 
@@ -62,6 +81,22 @@
   line-height: 1.6;
   font-size: 1.1rem;
   color: #e0e0e0;
+}
+
+.add-watchlist-btn {
+  background-color: #f5c518;
+  color: #000;
+  border: none;
+  padding: 12px 24px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.add-watchlist-btn:hover {
+  background-color: #d4a910;
 }
 
 @media (max-width: 850px) {

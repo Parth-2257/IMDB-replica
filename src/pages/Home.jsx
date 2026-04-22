@@ -6,15 +6,14 @@ const Home = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const API_KEY = '3e10ae55fa5be512a7aa34b397703c3b';
-  const API_URL = `https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`;
+  const API_URL = `https://api.themoviedb.org/3/trending/movie/week?api_key=${import.meta.env.VITE_API_KEY}`;
 
   useEffect(() => {
     const fetchMovies = async () => {
       try {
         const response = await fetch(API_URL);
         const data = await response.json();
-        setMovies(data.results.slice(0, 5));
+        setMovies(data.results);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching trending movies:', error);
@@ -23,7 +22,7 @@ const Home = () => {
     };
 
     fetchMovies();
-  }, []);
+  }, [API_URL]);
 
   if (loading) {
     return <div className="loading">Loading...</div>;

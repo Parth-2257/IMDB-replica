@@ -8,13 +8,11 @@ const MovieDetail = () => {
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const API_KEY = '3e10ae55fa5be512a7aa34b397703c3b';
-
   useEffect(() => {
     const fetchMovieDetail = async () => {
       try {
         const response = await fetch(
-          `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}`
+          `https://api.themoviedb.org/3/movie/${id}?api_key=${import.meta.env.VITE_API_KEY}`
         );
         const data = await response.json();
         setMovie(data);
@@ -46,10 +44,22 @@ const MovieDetail = () => {
           <h1 className="detail-title">{movie.title}</h1>
           <p className="detail-rating">⭐ {movie.vote_average?.toFixed(1)}</p>
           <p className="detail-date">Release Date: {movie.release_date}</p>
+          {movie.genres && (
+            <div className="detail-genres">
+              {movie.genres.map((genre) => (
+                <span key={genre.id} className="genre-tag">
+                  {genre.name}
+                </span>
+              ))}
+            </div>
+          )}
           <div className="detail-overview">
             <h3>Overview</h3>
             <p>{movie.overview}</p>
           </div>
+          <button className="add-watchlist-btn">
+            + Add to Watchlist
+          </button>
         </div>
       </div>
     </div>
