@@ -36,6 +36,7 @@ const Home = () => {
         {movies.map((movie) => (
           <MovieCard
             key={movie.id}
+            id={movie.id}
             poster={movie.poster_path}
             title={movie.title}
             rating={movie.vote_average}
