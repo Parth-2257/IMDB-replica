@@ -1,0 +1,42 @@
+.movie-card {
+  width: 220px;
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+
+.movie-card:hover {
+  transform: translateY(-5px);
+}
+
+.movie-poster {
+  width: 100%;
+  height: 330px;
+  object-fit: cover;
+}
+
+.movie-info {
+  padding: 12px;
+}
+
+.movie-title {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.movie-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  color: #bbbbbb;
+}
+
+.rating {
+  color: #f5c518;
+}

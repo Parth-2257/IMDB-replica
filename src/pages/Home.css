@@ -1,0 +1,25 @@
+.home-container {
+  padding: 30px 40px;
+}
+
+.section-title {
+  font-size: 24px;
+  margin-bottom: 25px;
+  border-left: 4px solid #f5c518;
+  padding-left: 15px;
+}
+
+.movie-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  font-size: 20px;
+  color: #f5c518;
+}
