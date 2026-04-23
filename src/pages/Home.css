@@ -25,6 +25,36 @@
   border-color: #f5c518;
 }
 
+.genres-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.genre-btn {
+  background-color: #1a1a1a;
+  color: white;
+  border: 1px solid #333;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.genre-btn:hover {
+  border-color: #f5c518;
+  color: #f5c518;
+}
+
+.genre-btn.active {
+  background-color: #f5c518;
+  color: black;
+  border-color: #f5c518;
+}
+
 .section-title {
   font-size: 24px;
   margin-bottom: 25px;

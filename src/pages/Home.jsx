@@ -6,6 +6,22 @@ const Home = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
+  const [genres, setGenres] = useState([]);
+  const [selectedGenre, setSelectedGenre] = useState('');
+
+  // Fetch Genres on mount
+  useEffect(() => {
+    const fetchGenres = async () => {
+      try {
+        const response = await fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=${import.meta.env.VITE_API_KEY}`);
+        const data = await response.json();
+        setGenres(data.genres || []);
+      } catch (error) {
+        console.error('Error fetching genres:', error);
+      }
+    };
+    fetchGenres();
+  }, []);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -14,6 +30,8 @@ const Home = () => {
         let url = '';
         if (searchQuery) {
           url = `https://api.themoviedb.org/3/search/movie?api_key=${import.meta.env.VITE_API_KEY}&query=${searchQuery}`;
+        } else if (selectedGenre) {
+          url = `https://api.themoviedb.org/3/discover/movie?api_key=${import.meta.env.VITE_API_KEY}&with_genres=${selectedGenre}`;
         } else {
           url = `https://api.themoviedb.org/3/trending/movie/week?api_key=${import.meta.env.VITE_API_KEY}`;
         }
@@ -29,7 +47,21 @@ const Home = () => {
     };
 
     fetchMovies();
-  }, [searchQuery]);
+  }, [searchQuery, selectedGenre]);
+
+  const handleGenreClick = (genreId) => {
+    setSelectedGenre(genreId);
+    setSearchQuery(''); // Clear search when genre is selected
+  };
+
+  const getSectionTitle = () => {
+    if (searchQuery) return `Search Results for "${searchQuery}"`;
+    if (selectedGenre) {
+      const genre = genres.find(g => g.id === selectedGenre);
+      return genre ? `${genre.name} Movies` : 'Movies';
+    }
+    return 'Trending Movies';
+  };
 
   return (
     <div className="home-container">
@@ -38,13 +70,32 @@ const Home = () => {
           type="text"
           placeholder="Search for movies..."
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
+          onChange={(e) => {
+            setSearchQuery(e.target.value);
+            if (e.target.value) setSelectedGenre(''); // Clear genre when searching
+          }}
         />
       </div>
 
-      <h2 className="section-title">
-        {searchQuery ? `Search Results for "${searchQuery}"` : 'Trending Movies'}
-      </h2>
+      <div className="genres-container">
+        <button
+          className={`genre-btn ${selectedGenre === '' ? 'active' : ''}`}
+          onClick={() => setSelectedGenre('')}
+        >
+          All
+        </button>
+        {genres.map((genre) => (
+          <button
+            key={genre.id}
+            className={`genre-btn ${selectedGenre === genre.id ? 'active' : ''}`}
+            onClick={() => handleGenreClick(genre.id)}
+          >
+            {genre.name}
+          </button>
+        ))}
+      </div>
+
+      <h2 className="section-title">{getSectionTitle()}</h2>
 
       {loading ? (
         <div className="loading">Loading...</div>
