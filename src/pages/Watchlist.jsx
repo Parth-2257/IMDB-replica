@@ -1,14 +1,27 @@
 import React from 'react';
+import MovieCard from '../components/MovieCard';
+import './Home.css'; // Reusing existing grid styles
 
-const Watchlist = () => {
+const Watchlist = ({ watchlist }) => {
   return (
-    <div style={{ padding: '40px', color: 'white' }}>
-      <h1 style={{ borderLeft: '4px solid #f5c518', paddingLeft: '15px' }}>
-        Your Watchlist
-      </h1>
-      <p style={{ marginTop: '20px', color: '#bbb' }}>
-        No movies added to your watchlist yet.
-      </p>
+    <div className="home-container">
+      <h2 className="section-title">Your Watchlist</h2>
+      {watchlist?.length === 0 ? (
+        <p className="no-results">No movies saved yet.</p>
+      ) : (
+        <div className="movie-grid">
+          {watchlist?.map((movie) => (
+            <MovieCard
+              key={movie.id}
+              id={movie.id}
+              poster={movie.poster_path}
+              title={movie.title}
+              rating={movie.vote_average}
+              year={movie.release_date}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

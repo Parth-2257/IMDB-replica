@@ -1,19 +1,34 @@
+import React, { useState, createContext, useContext } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import MovieDetail from './pages/MovieDetail';
 import Watchlist from './pages/Watchlist';
 
+export const WatchlistContext = createContext();
+
+export const useWatchlist = () => useContext(WatchlistContext);
+
 function App() {
+  const [watchlist, setWatchlist] = useState([]);
+
   return (
-    <div className="App">
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/movie/:id" element={<MovieDetail />} />
-        <Route path="/watchlist" element={<Watchlist />} />
-      </Routes>
-    </div>
+    <WatchlistContext.Provider value={{ watchlist, setWatchlist }}>
+      <div className="App">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/movie/:id"
+            element={<MovieDetail watchlist={watchlist} setWatchlist={setWatchlist} />}
+          />
+          <Route
+            path="/watchlist"
+            element={<Watchlist watchlist={watchlist} setWatchlist={setWatchlist} />}
+          />
+        </Routes>
+      </div>
+    </WatchlistContext.Provider>
   );
 }
 

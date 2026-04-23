@@ -2,11 +2,30 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './MovieDetail.css';
 
-const MovieDetail = () => {
+const MovieDetail = ({ watchlist, setWatchlist }) => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const isInWatchlist = watchlist?.some((m) => m.id === Number(id));
+
+  const toggleWatchlist = () => {
+    if (isInWatchlist) {
+      setWatchlist(watchlist.filter((m) => m.id !== Number(id)));
+    } else {
+      setWatchlist([
+        ...watchlist,
+        {
+          id: movie.id,
+          title: movie.title,
+          poster_path: movie.poster_path,
+          vote_average: movie.vote_average,
+          release_date: movie.release_date,
+        },
+      ]);
+    }
+  };
 
   useEffect(() => {
     const fetchMovieDetail = async () => {
@@ -57,8 +76,11 @@ const MovieDetail = () => {
             <h3>Overview</h3>
             <p>{movie.overview}</p>
           </div>
-          <button className="add-watchlist-btn">
-            + Add to Watchlist
+          <button
+            className={`add-watchlist-btn ${isInWatchlist ? 'remove' : ''}`}
+            onClick={toggleWatchlist}
+          >
+            {isInWatchlist ? '✓ In Watchlist' : '+ Add to Watchlist'}
           </button>
         </div>
       </div>
