@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import MovieDetail from './pages/MovieDetail';
 import Watchlist from './pages/Watchlist';
+import TopRated from './pages/TopRated';
 
 export const WatchlistContext = createContext();
 
@@ -26,6 +27,7 @@ function App() {
             path="/watchlist"
             element={<Watchlist watchlist={watchlist} setWatchlist={setWatchlist} />}
           />
+          <Route path="/top-rated" element={<TopRated />} />
         </Routes>
       </div>
     </WatchlistContext.Provider>
