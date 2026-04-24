@@ -103,13 +103,17 @@
   background: #ff0f1a;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .watchlist-grid {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
   
   .watchlist-header h1 {
     font-size: 1.8rem;
+  }
+  
+  .watchlist-container {
+    padding: 1rem;
   }
 }
