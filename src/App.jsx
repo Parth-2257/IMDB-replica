@@ -12,11 +12,12 @@ export const useWatchlist = () => useContext(WatchlistContext);
 
 function App() {
   const [watchlist, setWatchlist] = useState([]);
+  const [darkMode, setDarkMode] = useState(true);
 
   return (
     <WatchlistContext.Provider value={{ watchlist, setWatchlist }}>
-      <div className="App">
-        <Navbar />
+      <div className={`App ${darkMode ? 'dark' : 'light'}`}>
+        <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route

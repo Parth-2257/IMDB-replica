@@ -5,6 +5,7 @@
   padding: 10px 40px;
   background-color: #000000;
   color: #ffffff;
+  transition: background-color 0.3s;
 }
 
 .logo {
@@ -19,6 +20,7 @@
 .nav-links {
   display: flex;
   gap: 25px;
+  align-items: center;
 }
 
 .nav-links a {
@@ -28,6 +30,14 @@
 
 .nav-links a:hover {
   text-decoration: underline;
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0 5px;
 }
 
 @media (max-width: 768px) {
