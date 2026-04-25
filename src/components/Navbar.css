@@ -29,7 +29,8 @@
 }
 
 .nav-links a:hover {
-  text-decoration: underline;
+  color: #f5c518;
+  text-decoration: none;
 }
 
 .theme-toggle {

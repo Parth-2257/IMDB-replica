@@ -1,0 +1,60 @@
+.footer {
+  background-color: #121212;
+  color: #ffffff;
+  padding: 40px 20px;
+  margin-top: 50px;
+  border-top: 1px solid #333;
+  text-align: center;
+}
+
+.footer-content h3 {
+  color: #f5c518;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.footer-links a {
+  color: #ffffff;
+  font-size: 0.9rem;
+  transition: color 0.3s;
+}
+
+.footer-links a:hover {
+  color: #f5c518;
+}
+
+.copyright {
+  color: #888;
+  font-size: 0.8rem;
+}
+
+/* Global Heading Style (Requested UI improvement) */
+h1, h2, h3 {
+  color: #f5c518;
+}
+
+/* Light mode support */
+.light .footer {
+  background-color: #f0f0f0;
+  color: #000000;
+  border-top-color: #ccc;
+}
+
+.light .footer-links a {
+  color: #000000;
+}
+
+.light .footer-links a:hover {
+  color: #f5c518;
+}
+
+.light .copyright {
+  color: #666;
+}

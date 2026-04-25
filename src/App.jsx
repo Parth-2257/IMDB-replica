@@ -6,6 +6,8 @@ import MovieDetail from './pages/MovieDetail';
 import Watchlist from './pages/Watchlist';
 import TopRated from './pages/TopRated';
 
+import Footer from './components/Footer';
+
 export const WatchlistContext = createContext();
 
 export const useWatchlist = () => useContext(WatchlistContext);
@@ -30,6 +32,7 @@ function App() {
           />
           <Route path="/top-rated" element={<TopRated />} />
         </Routes>
+        <Footer />
       </div>
     </WatchlistContext.Provider>
   );
