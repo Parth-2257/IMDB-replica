@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import Skeleton from '../components/Skeleton';
 import './MovieDetail.css';
 
 const MovieDetail = ({ watchlist, setWatchlist }) => {
@@ -7,6 +8,7 @@ const MovieDetail = ({ watchlist, setWatchlist }) => {
   const navigate = useNavigate();
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   const isInWatchlist = watchlist?.some((m) => m.id === Number(id));
 
@@ -29,15 +31,19 @@ const MovieDetail = ({ watchlist, setWatchlist }) => {
 
   useEffect(() => {
     const fetchMovieDetail = async () => {
+      setLoading(true);
+      setError(false);
       try {
         const response = await fetch(
           `https://api.themoviedb.org/3/movie/${id}?api_key=${import.meta.env.VITE_API_KEY}`
         );
+        if (!response.ok) throw new Error('Failed to fetch');
         const data = await response.json();
         setMovie(data);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching movie details:', error);
+        setError(true);
         setLoading(false);
       }
     };
@@ -45,7 +51,30 @@ const MovieDetail = ({ watchlist, setWatchlist }) => {
     fetchMovieDetail();
   }, [id]);
 
-  if (loading) return <div className="loading">Loading...</div>;
+  if (error) {
+    return (
+      <div className="movie-detail-container">
+        <button className="back-btn" onClick={() => navigate('/')}>
+          ← Back Home
+        </button>
+        <div className="error" style={{ textAlign: 'center', color: '#f5c518', fontSize: '1.2rem', marginTop: '2rem' }}>
+          Something went wrong. Please try again.
+        </div>
+      </div>
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className="movie-detail-container">
+        <button className="back-btn" onClick={() => navigate('/')}>
+          ← Back Home
+        </button>
+        <Skeleton type="detail" />
+      </div>
+    );
+  }
+
   if (!movie) return <div className="error">Movie not found.</div>;
 
   return (
@@ -87,5 +116,4 @@ const MovieDetail = ({ watchlist, setWatchlist }) => {
     </div>
   );
 };
-
 export default MovieDetail;

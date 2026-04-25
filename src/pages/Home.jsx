@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import MovieCard from '../components/MovieCard';
+import Skeleton from '../components/Skeleton';
 import './Home.css';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [genres, setGenres] = useState([]);
   const [selectedGenre, setSelectedGenre] = useState('');
@@ -26,6 +28,7 @@ const Home = () => {
   useEffect(() => {
     const fetchMovies = async () => {
       setLoading(true);
+      setError(false);
       try {
         let url = '';
         if (searchQuery) {
@@ -37,11 +40,13 @@ const Home = () => {
         }
 
         const response = await fetch(url);
+        if (!response.ok) throw new Error('Failed to fetch');
         const data = await response.json();
         setMovies(data.results || []);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching movies:', error);
+        setError(true);
         setLoading(false);
       }
     };
@@ -97,8 +102,16 @@ const Home = () => {
 
       <h2 className="section-title">{getSectionTitle()}</h2>
 
-      {loading ? (
-        <div className="loading">Loading...</div>
+      {error ? (
+        <div className="error" style={{ textAlign: 'center', color: '#f5c518', fontSize: '1.2rem', marginTop: '2rem' }}>
+          Something went wrong. Please try again.
+        </div>
+      ) : loading ? (
+        <div className="movie-grid">
+          {[...Array(20)].map((_, index) => (
+            <Skeleton key={index} type="card" />
+          ))}
+        </div>
       ) : (
         <div className="movie-grid">
           {movies.map((movie) => (
@@ -116,5 +129,4 @@ const Home = () => {
     </div>
   );
 };
-
 export default Home;
